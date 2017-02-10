@@ -44,7 +44,11 @@ public class MyLinearMap<K, V> implements Map<K, V> {
 
 	// Returns the entry that contains the target key, or null if there is none.
 	private Entry findEntry(Object target) {
-		// TODO
+		for (Entry ent: entries){
+			if (equals(target, ent.key)){
+				return ent;
+			}
+		}
 		return null;
 	}
 
@@ -73,8 +77,14 @@ public class MyLinearMap<K, V> implements Map<K, V> {
 
 	@Override
 	public V get(Object key) {
-		// TODO
-		return null;
+		Entry ent = findEntry(key);
+		if (ent ==null){
+			return null;
+		}
+		else{
+			return ent.value;
+		}
+
 	}
 
 	@Override
@@ -93,8 +103,15 @@ public class MyLinearMap<K, V> implements Map<K, V> {
 
 	@Override
 	public V put(K key, V value) {
-		// TODO
-		return null;
+		Entry ent = findEntry(key);
+		if (ent == null){
+			Entry temp = new Entry(key,value);
+			entries.add(temp);
+		}
+		else {
+			ent.value = value;
+		}
+		return value;
 	}
 
 	@Override
@@ -106,10 +123,16 @@ public class MyLinearMap<K, V> implements Map<K, V> {
 
 	@Override
 	public V remove(Object key) {
-		// TODO
-		return null;
+		Entry ent = findEntry(key);
+		if (ent == null){
+			return null;
+		}
+		else {
+			V temp = ent.value;
+			entries.remove(ent);
+			return temp;
+		}
 	}
-
 	@Override
 	public int size() {
 		return entries.size();

@@ -14,6 +14,13 @@ public class ProblemsTest {
     /**
      * Test method for {@link Problems#getCountMap(int[])}.
      */
+
+    @Test
+    public void testMy() {
+        int[]a = new int[]{4, 3, 2, 1};
+        List<Integer> b= Problems.removeKDigits(a, 2);
+        System.out.println(b);
+    }
     @Test
     public void testCountMap() {
         int[] in = new int[]{1, 1, 3, 4, 1, 4, 5};
@@ -63,6 +70,7 @@ public class ProblemsTest {
 
         in = new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9};
         out = Problems.removeKDigits(in, 5).toArray();
+<<<<<<< Updated upstream
         assertThat(out, is(new Integer[]{1, 2, 3, 4}));
 
         in = new int[]{1, 2, 3, 1, 5, 6, 7, 2, 9};
@@ -73,6 +81,14 @@ public class ProblemsTest {
                 8, 6, 2, 4, 4, 6, 4, 1, 3, 8, 1, 3, 1, 5, 4, 3, 4, 4};
         out = Problems.removeKDigits(in, 25).toArray();
         assertThat(out, is(new Integer[]{0, 0, 0, 1, 4, 4, 9, 8, 6, 2, 4, 4, 6, 4, 1, 3, 8, 1, 3, 1, 5, 4, 3, 4, 4}));
+=======
+        assertThat(out, is(new Integer[] {1, 2, 3, 4}));
+
+        in = new int[]{2, 4, 1, 9};
+        out = Problems.removeKDigits(in, 2).toArray();
+        assertThat(out, is(new Integer[] {1, 9}));
+
+>>>>>>> Stashed changes
     }
 
     private Node<Integer> arrToNodes(int[] arr) {

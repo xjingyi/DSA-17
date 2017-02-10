@@ -58,6 +58,12 @@ public class MyLinearMapTest {
 	 * Test method for {@link MyLinearMap#get(java.lang.Object)}.
 	 */
 	@Test
+	public void testMy() {
+
+
+	}
+
+	@Test
 	public void testGet() {
 		assertThat(map.get("Three"), is(3));
 		assertThat(map.get(null), is(0));

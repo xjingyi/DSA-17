@@ -1,10 +1,7 @@
 import static org.junit.Assert.assertThat;
 import static org.hamcrest.CoreMatchers.*;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -114,7 +111,7 @@ public class MyHashMapTest {
         MyHashMap temp = (MyHashMap) map;
         assertThat(temp.maps.size(), is(16384));
         for (int i = 0; i < 6000; i++)
-            map.remove(Integer.toString(i));
+        map.remove(Integer.toString(i));
         assertThat(temp.maps.size(), is(8192));
         for (int i = 6000; i < 9960; i++)
             map.remove(Integer.toString(i));
@@ -125,6 +122,16 @@ public class MyHashMapTest {
         for (int i = 9990; i < 9998; i++)
             map.remove(Integer.toString(i));
         assertThat(temp.maps.size(), is(16));
+    }
+    @Test
+    public void testMy() {
+        for (int i = 0; i < 10000; i++) {
+            map.put(Integer.toString(i), i);
+            //System.out.println(map.size());}
+            MyHashMap temp = (MyHashMap) map;
+        }
+
+
     }
 
     /**
