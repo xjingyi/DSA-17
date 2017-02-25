@@ -135,4 +135,26 @@ public class PeakFindingTest {
         }
         isValidTwoDSolution(nums, PeakFinding.findTwoDPeak(nums));
     }
+
+    @Test
+    public void Twomy() {
+        int[][] nums = new int[10][10];
+        for (int i = 0; i < nums.length; i++) {
+            for (int j = 0; j < nums[0].length; j++) {
+                nums[i][j] = i+j;
+            }
+        }
+        int rows = nums.length;
+        int columns = nums[0].length;
+        for(int i = 0; i<rows; i++)
+        {
+            for(int j = 0; j<columns; j++)
+            {
+                System.out.print(nums[i][j]);
+            }
+            System.out.println();
+        }
+        int[] re = PeakFinding.findTwoDPeak(nums);
+        System.out.println(re[0]+ "hh" + re[1]);
+    }
 }
