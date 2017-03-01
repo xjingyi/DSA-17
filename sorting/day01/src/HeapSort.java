@@ -16,16 +16,39 @@ public class HeapSort extends SortAlgorithm {
 
     // Recursively corrects the position of element indexed i: check children, and swap with larger child if necessary.
     public void heapify(int i) {
-        // TODO
+            if (leftChild(i)<size&&heap[leftChild(i)]>heap[i]){
+                if(rightChild(i)<size&&heap[leftChild(i)]<heap[rightChild(i)]){
+                    swap(rightChild(i),i);
+                    heapify(rightChild(i));
+            }else {
+                swap(leftChild(i),i);
+                heapify(leftChild(i));}}
+            else if (rightChild(i)<size&&heap[rightChild(i)]>heap[i]){
+                swap(rightChild(i),i);
+                heapify(rightChild(i));
+            }
+        }
+    public void adjustToHeap(int i) {
+        if (i!=0 && heap[parent(i)]<heap[i]){
+            swap(parent(i),i);
+            adjustToHeap(parent(i));
+        }
     }
-
     // Given the array, build a heap by correcting every non-leaf's position.
     public void buildHeapFrom(int[] array) {
         this.heap = array;
         this.size = array.length;
-        // TODO
-    }
+        for (int i = 0; i<array.length;i++){
+            heap[i] = array[i];
+            adjustToHeap(i);
+        }
+        }
 
+    public void swap(int a, int b){
+        int temp  = heap[a];
+        heap[a] = heap[b];
+        heap[b] = temp;
+    }
     /**
      * Best-case runtime:
      * Worst-case runtime:
@@ -36,8 +59,20 @@ public class HeapSort extends SortAlgorithm {
     @Override
     public int[] sort(int[] array) {
         buildHeapFrom(array);
+
+//        for (int j : heap){
+//            System.out.print(j);
+//        }
+//        System.out.println("a");
         for (int i=size-1; i>0; i--) {
-            // TODO
+            swap(i,0);
+            size--;
+            heapify(0);
+
+//            for (int j : heap){
+//                System.out.print(j);
+//            }
+//            System.out.println("a");
         }
         return heap;
     }

@@ -1,7 +1,6 @@
 
 public class PeakFinding {
 
-<<<<<<< HEAD
     public static int findOneDPeak(int[] nums) {
         int n = nums.length;
         return findOnePeak(nums, 0, n - 1, n);
@@ -86,7 +85,8 @@ public class PeakFinding {
                 return re;
             }
         }
-=======
+    }
+
     // Return -1 is left is higher, 1 if right is higher, 0 if peak
     private static int peak(int i, int[] nums) {
         if (i>0 && nums[i] < nums[i-1])
@@ -132,19 +132,4 @@ public class PeakFinding {
         }
         return maxIndex;
     }
-
-
-
-    public static int findOneDPeak(int[] nums){
-    	// TODO
-        return -1;
-    }
-
-    public static int[] findTwoDPeak(int[][] nums){
-    	// TODO: Optionally due by 2/23. Will be due on 2/27.
-        int[] answer = {-1,-1};
-        return answer;
->>>>>>> 3ed7b9c2c11a26ca8b2fa7e2b74c3c4c3a2ce6ae
-    }
-
 }

@@ -37,6 +37,15 @@ public class HeapSortTest {
     }
 
     @Test
+    public void testMy() {
+        HeapSort hs = new HeapSort();
+        int[] in = new int[]{1, 3, 2, 5, 1, 2, 7, 9};
+        hs.buildHeapFrom(in);
+        for (int i : in){
+            System.out.println(i);
+        }
+    }
+    @Test
     public void testHeapify() {
         HeapSort hs = new HeapSort();
         int[] in = new int[]{4, 2, 9, 1, 5, 6, 3, 1, 2};

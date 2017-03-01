@@ -32,5 +32,18 @@ public class ProblemsTest {
         assertTrue(Arrays.equals(Problems.runningMedian(fastCase), Problems.runningMedianReallySlow(fastCase)));
         assertTrue(Arrays.equals(Problems.runningMedian(slowCase), Problems.runningMedianReallySlow(slowCase)));
     }
+    @Test
+    public void testMy() {
+        int[] in = new int[]{4,5,200,50,1,4,6,2,7,89};
+        double[] out = Problems.runningMedian(in);
+        double[] out2  = Problems.runningMedianReallySlow(in);
+        for (double i : out){
+            System.out.print(i+" ");
+        }
+        System.out.println("is equal?");
+        for (double i : out2){
+            System.out.print(i+" ");
+        }
+    }
 
 }
