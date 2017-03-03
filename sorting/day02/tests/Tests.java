@@ -36,6 +36,15 @@ public class Tests {
             assertArrayEquals(A, sorted);
         }
     }
+    @Test
+    public void testMy() {
+        int[] A = new int[]{1,9,44,3,7,1,4,7};
+                  CountingSort.countingSort(A);
+           for (int i :A){
+               System.out.println(" "+ i);
+           }
+
+    }
 
     /**
      * Test method for {@link RadixSort#radixSort(int[], int)}.
