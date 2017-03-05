@@ -2,7 +2,13 @@ public class CountingSort {
 
     /**
      * Use counting sort to sort positive integer array A.
+<<<<<<< HEAD
      * Runtime: n+max
+=======
+     * Runtime: TODO
+     *
+     * k: maximum element in array A
+>>>>>>> 3426e3cd9fc692dfc73d933f57a34f667a2def97
      */
     static void countingSort(int[] A) {
         int max = 0;
