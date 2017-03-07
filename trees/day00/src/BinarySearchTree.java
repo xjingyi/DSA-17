@@ -1,3 +1,6 @@
+import sun.reflect.generics.tree.Tree;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class BinarySearchTree<T extends Comparable<T>> {
@@ -28,8 +31,23 @@ public class BinarySearchTree<T extends Comparable<T>> {
     }
 
     public List<T> inOrderTraversal() {
-        // TODO
-        return null;
+        List<T> list = new ArrayList<T>();
+        addInorder(root,list);
+        return list;
+    }
+
+    void addInorder(TreeNode<T> node, List<T> list)
+    {
+        if (node == null)
+            return;
+
+        addInorder(node.leftChild,list);
+
+        /* then print the data of node */
+        list.add(node.key);
+
+        /* now recur on right child */
+        addInorder(node.rightChild,list);
     }
 
     /**
@@ -59,19 +77,19 @@ public class BinarySearchTree<T extends Comparable<T>> {
         TreeNode<T> replacement;
 
         if (n.isLeaf())
-            // Case 1: no children
+        { // Case 1: no children
             replacement = null;
+        n.replaceWith(replacement);}
         else if (n.hasRightChild() != n.hasLeftChild())
             // Case 2: one child
-            replacement = (n.hasRightChild()) ? n.rightChild : n.leftChild; // replacement is the non-null child
+        {replacement = (n.hasRightChild()) ? n.rightChild : n.leftChild; // replacement is the non-null child
+        n.replaceWith(replacement);}
         else {
-            // Case 3: two children
-            // TODO
-            replacement = null;
+            replacement = findSuccessor(n);
+            n.key= replacement.key;
+            delete(replacement);
         }
-
         // Put the replacement in its correct place, and set the parent.
-        n.replaceWith(replacement);
         return replacement;
     }
 
@@ -94,15 +112,52 @@ public class BinarySearchTree<T extends Comparable<T>> {
         }
         return null;
     }
+    public TreeNode minValue(TreeNode node) {
+        TreeNode current = node;
+
+        /* loop down to find the leftmost leaf */
+        while (current.leftChild != null) {
+            current = current.leftChild;
+        }
+        return current;
+    }
+    public TreeNode maxValue(TreeNode node) {
+        TreeNode current = node;
+
+        /* loop down to find the leftmost leaf */
+        while (current.rightChild != null) {
+            current = current.rightChild;
+        }
+        return current;
+    }
+
 
     private TreeNode<T> findPredecessor(TreeNode<T> n) {
-        // TODO
-        return null;
+        if (n == null)
+            return null;
+
+        if (n.leftChild != null)
+            return maxValue(n.leftChild);
+        TreeNode pre = null;
+        TreeNode<T> roott = root;
+        while (n.isLeftChild())
+        {   n=n.parent;
+        }
+         pre = n.parent;
+        return pre;
     }
 
     private TreeNode<T> findSuccessor(TreeNode<T> n) {
-        // TODO
-        return null;
+        if (n.rightChild!=null){
+            return minValue(n.rightChild);
+        }
+        TreeNode succ = null;
+        TreeNode<T> roott = root;
+        while (n.isRightChild())
+        {   n=n.parent;
+        }
+        succ = n.parent;
+        return succ;
     }
 
     /**
