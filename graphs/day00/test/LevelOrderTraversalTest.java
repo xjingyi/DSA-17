@@ -35,4 +35,12 @@ public class LevelOrderTraversalTest {
         List<Integer> traversal = LevelOrderTraversal.levelOrderTraversal(n);
         assertArrayEquals(traversal.toArray(), new Object[] {8, 2, 6, 3, 1, 8, 10, 2});
     }
+
+    @Test
+    public void testMy() {
+        List<Integer> traversal = LevelOrderTraversal.levelOrderTraversal(n);
+        for (int i :traversal){
+            System.out.println(i);
+        }
+    }
 }

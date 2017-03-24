@@ -1,46 +1,62 @@
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class UndirectedGraph implements Graph {
 
+    private HashMap<Integer,ArrayList> g;
+    private int countV;
+    private int countE;
     public UndirectedGraph(int n) {
-        // TODO: Your code here
+        g = new HashMap(n);
+        for(int i=0;i<n;i++){
+            ArrayList list  = new ArrayList();
+            g.put(i,list);
+        }
+        countV = n;
     }
 
     @Override
     public void addEdge(int v, int w) {
-        // TODO: Your code here
+        ArrayList listv;
+        ArrayList listw;
+        listv = g.get(v);
+        listw = g.get(w);
+        listv.add(w);
+        listw.add(v);
+        g.put(v,listv);
+        g.put(w,listw);
+        countE++;
     }
 
     @Override
     public List<Integer> vertices() {
-    	// TODO: Your code here
-        return null;
+        ArrayList list = new ArrayList(countV);
+        for (int i : g.keySet()){
+            list.add(i);
+        }
+        return list;
     }
 
     @Override
     public int numVertices() {
-    	// TODO: Your code here
-        return 0;
+        return countV;
     }
 
     @Override
     public int numEdges() {
-    	// TODO: Your code here
-        return 0;
+    	return countE;
     }
 
     @Override
     public Iterable<Integer> getNeighbors(int v) {
-    	// TODO: Your code here
-        return null;
+    	ArrayList list = g.get(v);
+        return list;
     }
 
     @Override
     public boolean hasEdgeBetween(int v, int w) {
-    	// TODO: Your code here
+    	ArrayList list = g.get(v);
+        if (list.contains(w))
+            return true;
         return false;
     }
 

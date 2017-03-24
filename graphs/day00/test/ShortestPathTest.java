@@ -68,6 +68,18 @@ public class ShortestPathTest {
      * Test method for {@link ShortestPath#distanceBetween(Graph, int, int)}.
      */
     @Test
+    public void testMy() {
+
+        List<Integer> path1 = ShortestPath.shortestPath(g1, 0, 6);
+        for (int i :path1){
+            System.out.println(i);
+        }
+    }
+
+    /**
+     * Test method for {@link ShortestPath#distanceBetween(Graph, int, int)}.
+     */
+    @Test
     public void testDistanceBetween() {
         assertThat(ShortestPath.distanceBetween(g1, 0, 6), is(4));
         assertThat(ShortestPath.distanceBetween(g1, 0, 4), is(2));
