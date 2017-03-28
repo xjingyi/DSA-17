@@ -94,6 +94,11 @@ public class GraphProblemsTest {
                 is(new Integer[]{5, 1, 2, 3, 4, 0})));
 
     }
+    @Test
+    public void testMy() {
+        List<Integer> order = GraphProblems.topologicalOrder(g4);
+
+    }
 
 
     /**
