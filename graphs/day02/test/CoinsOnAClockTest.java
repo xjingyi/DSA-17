@@ -30,6 +30,11 @@ public class CoinsOnAClockTest {
                 {'n', 'p', 'p', 'd', 'd', 'n'}};
         assertThat(TestUtil.convertToLists(solutions), containsInAnyOrder(TestUtil.arrayToLists(expected)));
     }
+    @Test
+    public void testMy() {
+        List<char[]> solutions = CoinsOnAClock.coinsOnAClock(2, 2, 2, 6);
+
+    }
 
     /**
      * Test method for {@link CoinsOnAClock#coinsOnAClock(int, int, int, int)}.
