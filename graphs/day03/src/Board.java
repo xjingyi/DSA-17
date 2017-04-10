@@ -1,5 +1,6 @@
-import java.util.LinkedList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.*;
 
 /**
  * Board definition for the 8 Puzzle challenge
@@ -14,7 +15,8 @@ public class Board {
      * Set the global board size and tile state
      */
     public Board(int[][] b) {
-        // TODO: Your code here
+        n = b.length;
+        tiles = b;
     }
 
     /*
@@ -22,33 +24,63 @@ public class Board {
      * class should  work for any puzzle size)
      */
     private int size() {
-    	// TODO: Your code here
-        return 0;
+        return n;
     }
 
     /*
      * Sum of the manhattan distances between the tiles and the goal
      * Estimated cost from the current node to the goal for A* (h(n))
      */
-    public int manhattan() {
-		// TODO: Your code here
-        return 0;
+    public int manhattan(){
+        int sumDist = 0;
+        for(int i = 0; i < n; i++){
+            for (int j = 0; j < n ; j++) {
+                if (tiles[i][j]!=0) {
+                    int current = tiles[i][j];
+                    sumDist += Math.abs((current-1)/n-i)+Math.abs((current+2)%n-j);
+                }
+            }
+        }
+        return sumDist;
     }
 
     /*
      * Compare the current state to the goal state
      */
     public boolean isGoal() {
-    	// TODO: Your code here
-        return false;
+        return (manhattan()==0);
     }
 
-    /*
-     * Returns true if the board is solvable
-     */
+    private int[] matrixToArray(int[][] A) {
+        int[] arr = new int[A.length * A.length - 1];
+        int count = 0;
+        for (int i = 0; i < A.length; i++) {
+            for (int j = 0; j < A.length; j++) {
+                if (A[i][j] != 0) {
+                    arr[count] = A[i][j];
+                    count++;
+                }
+            }
+
+        }
+        return arr;
+    }
+
+
     public boolean solvable() {
-    	// TODO: Your code here
-        return false;
+        int[] tilesArr = matrixToArray(tiles);
+        int count = 0;
+        for (int i = 0; i < tilesArr.length-1; i++) {
+            for (int j = i + 1; j < tilesArr.length; j++) {
+                if (tilesArr[j]<tilesArr[i]) {
+                    count ++;
+                }
+            }
+        }
+        if (count % 2 == 1)
+            return false;
+        return true;
+
     }
 
     /*
@@ -57,9 +89,52 @@ public class Board {
      * blank space up, down, left, and right, and if the resulting board state
      * is valid, add it to an accumulator.
      */
+
+    private static int[][] copyOf(int[][] A) {
+        int[][] B = new int[A.length][A[0].length];
+        for (int i = 0; i < A.length; i++)
+            System.arraycopy(A[i], 0, B[i], 0, A[0].length);
+        return B;
+    }
+
     public Iterable<Board> neighbors() {
-    	// TODO: Your code here
-        return null;
+        int[] zeroPos = new int[2];
+        ArrayList<Board> neig = new ArrayList<>();
+        for (int i = 0; i < size(); i++) {
+            for (int j = 0; j < size(); j++) {
+                if (tiles[i][j] == 0) {
+                    zeroPos[0] = i;
+                    zeroPos[1] = j;
+                }
+            }
+        }
+        int[][] cord = {{1,0},{-1,0},{0,1},{0,-1}};
+        int[] newZeroPos = new int[2];
+        for (int i = 0; i < 4; i++) {
+            newZeroPos[0] = cord[i][0] + zeroPos[0];
+            newZeroPos[1] = cord[i][1] + zeroPos[1];
+            if ((newZeroPos[0] < size()) && (newZeroPos[0] >= 0) && (newZeroPos[1] < size()) && (newZeroPos[1] >= 0)) {
+                int[][] newArr = copyOf(tiles);
+                int temp = newArr[zeroPos[0]][zeroPos[1]];
+                newArr[zeroPos[0]][zeroPos[1]] = newArr[newZeroPos[0]][newZeroPos[1]];
+                newArr[newZeroPos[0]][newZeroPos[1]] = temp;
+                Board neighbor = new Board(newArr);
+                neig.add(neighbor);
+            }
+        }
+
+        return neig;
+    }
+
+
+    @Override
+    public String toString() {
+        String s = "";
+        for (int[] tile : tiles) {
+            for (int aTile : tile) s+= aTile + " ";
+            s += "\n";
+        }
+        return s;
     }
 
     /*
@@ -100,8 +175,10 @@ public class Board {
 
     public static void main(String[] args) {
         // DEBUG - Your solution can include whatever output you find useful
-        int[][] initState = {{1, 2, 3}, {4, 0, 6}, {7, 8, 5}};
+//        int[][] initState = {{1, 2, 3}, {4, 5, 0}, {7, 8, 6}};
+        int[][] initState = {{8, 6, 7}, {3, 4, 2}, {0, 1, 5}};
         Board board = new Board(initState);
+
 
         board.printBoard();
         System.out.println("Size: " + board.size());
@@ -112,5 +189,9 @@ public class Board {
         Iterable<Board> it = board.neighbors();
         for (Board b : it)
             b.printBoard();
+
+
     }
+
+
 }

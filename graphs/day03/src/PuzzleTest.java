@@ -28,6 +28,13 @@ public class PuzzleTest {
 	    assertThat(board.manhattan(), is(1));
 	}
 
+//    @Test
+//    public void testNeighbors(){
+//        Iterable<Board> neig = board.neighbors();
+//        for (Board current:neig){
+//            current.printBoard();
+//        }
+//    }
     /**
      * Test method for boolean isGoal().
      */
@@ -85,6 +92,18 @@ public class PuzzleTest {
         // Check number of moves
         assertThat(solver.minMoves, is(4));
     }
+
+/*    @Test
+    public void testMy() {
+
+        // Hard solve puzzle
+        int[][] initState = {{2, 3, 1}, {7, 0, 8}, {6, 5, 4}};
+        Board initial = new Board(initState);
+        Solver solver = new Solver(initial);
+        assertThat(solver.isSolvable(), is(true));
+        // Check number of moves
+        assertThat(solver.minMoves, is(16));
+    }*/
 
     /**
      * Test method for Solver - Hard puzzle

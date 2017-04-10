@@ -3,13 +3,14 @@
  * Construct a tree of board states using A* to find a path to the goal
  */
 
+
 import java.util.*;
 
 public class Solver {
 
     public int minMoves = -1;
     private State solutionState;
-    private boolean solved = false;
+    private State cuurentState;
 
     /**
      * State class to make the cost calculations simple
@@ -26,8 +27,7 @@ public class Solver {
             this.board = board;
             this.moves = moves;
             this.prev = prev;
-            // TODO: Compute cost of board state according to A*
-            cost = 0;
+            cost = moves + board.manhattan();
         }
 
         @Override
@@ -51,8 +51,10 @@ public class Solver {
      * Return the root state of a given state
      */
     private State root(State state) {
-    	// TODO: Your code here
-        return null;
+        while(state.prev != null){
+            state = state.prev;
+        }
+        return state;
     }
 
     /*
@@ -61,32 +63,74 @@ public class Solver {
      * and a identify the shortest path to the the goal state
      */
     public Solver(Board initial) {
-    	// TODO: Your code here
+        State initialState = new State(initial, 0, null);
+        cuurentState = initialState;
+        PriorityQueue<State> open = new PriorityQueue<>();
+        HashSet<State> closed = new HashSet<>();
+        int statesVisited = 0;
+        open.add(initialState);
+        if (!isSolvable()) {
+            return;
+        }
+        while(!open.isEmpty()){
+            State q = open.poll();
+            statesVisited++;
+            if (statesVisited % 1000 == 0)
+                System.out.println(statesVisited);
+
+                for(Board uu : q.board.neighbors()) {
+                    if (uu.isGoal()) {
+                        solutionState = new State(uu, q.moves + 1, q);
+                        minMoves = solutionState.moves;
+                        return;
+                    }
+
+                    State u = new State(uu, q.moves + 1, q);
+
+                    boolean flag = true;
+                    for (State n : open) {
+                        if (n.board.equals(u.board) && n.cost < u.cost) {
+                            flag = false;
+                            break;
+                        }
+                    }
+                    for (State n : closed) {
+                        if (n.board.equals(u.board) && n.cost < u.cost || !flag) {
+                            flag = false;
+                            break;
+                        }
+
+                    }
+                    if (flag) {
+                        open.add(u);
+                    }
+
+            }
+            closed.add(q);
+        }
     }
 
     /*
      * Is the input board a solvable state
      */
     public boolean isSolvable() {
-    	// TODO: Your code here
-        return false;
+        return cuurentState.board.solvable();
     }
 
     /*
      * Return the sequence of boards in a shortest solution, null if unsolvable
      */
     public Iterable<Board> solution() {
-    	// TODO: Your code here
-        return null;
-    }
-
-    public State find(Iterable<State> iter, Board b) {
-        for (State s : iter) {
-            if (s.board.equals(b)) {
-                return s;
-            }
+        State goal = solutionState;
+        minMoves = goal.moves;
+        ArrayList<Board> path = new ArrayList<>();
+        while (goal.prev != null) {
+            Board chicken = new Board(goal.board.tiles);
+            path.add(0, chicken);
+            goal = goal.prev;
         }
-        return null;
+        return path;
+
     }
 
     /*
@@ -108,6 +152,7 @@ public class Solver {
             }
             System.out.println(solver.minMoves);
         }
+
     }
 
 
