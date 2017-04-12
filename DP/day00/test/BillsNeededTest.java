@@ -16,7 +16,7 @@ public class BillsNeededTest {
      */
     @Test
     public void testBillsNeeded() throws FileNotFoundException {
-        for(int i = 1; i <= 10; i++){
+        for (int i = 1; i <= 10; i++) {
             Scanner input = new Scanner(new File(
                     "testcases/change." + i + ".in"));
             Scanner output = new Scanner(new File(
@@ -25,14 +25,15 @@ public class BillsNeededTest {
             int target = input.nextInt();
             int n = input.nextInt();
             int[] bills = new int[n];
-            for(int j = 0; j < n; j++){
+            for (int j = 0; j < n; j++) {
                 bills[j] = input.nextInt();
             }
 
-            assertEquals(output.nextInt(),new BillsNeeded().billsNeeded(target,bills));
+            assertEquals(output.nextInt(), new BillsNeeded().billsNeeded(target, bills));
 
             input.close();
             output.close();
         }
     }
 }
+
