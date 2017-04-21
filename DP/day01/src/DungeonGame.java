@@ -112,13 +112,13 @@ public class DungeonGame {
             memo[row][col] = current;
         }
         if (current<low){
-            System.out.println("current "+current+ " low "+low);
+/*            System.out.println("current "+current+ " low "+low);*/
             low = current;
         }
         if (row == memo.length-1 && col == memo[0].length-1) {
-            System.out.println(low);
+/*            System.out.println(low);*/
             if (glow.get(0) == -233 || low>glow.get(0)){
-                System.out.println("hitting "+low);
+/*                System.out.println("hitting "+low);*/
                 glow.removeFirst();
                 glow.addFirst(low);
             }
@@ -138,9 +138,9 @@ public class DungeonGame {
             low = current;
         }
         if (row == memo.length-1 && col == memo[0].length-1) {
-            System.out.println(low);
+/*            System.out.println(low);*/
             if (glow.get(0) == -233 || low>glow.get(0)){
-                System.out.println("hitting "+low);
+/*                System.out.println("hitting "+low);*/
                 glow.removeFirst();
                 glow.addFirst(low);
             }
